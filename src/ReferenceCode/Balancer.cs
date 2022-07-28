@@ -99,16 +99,17 @@ namespace ExampleMod.ReferenceCode {
 			IAssetTransactionManager assetTransactionManager,
 			ISimLoopEvents simLoopEvents,
 			IElectricityConsumerFactory electricityConsumerFactory
-		) : base(id, proto, transform, simLoopEvents, constructionManager) {
+		) : base(id, proto, transform, constructionManager) {
 			Prototype = proto;
 			m_assetTransactionManager = assetTransactionManager;
 			m_simLoopEvents = simLoopEvents;
 
+			/*
 			// TODO: OnlyForSaveCompatibility
 			m_electricityConsumer = electricityConsumerFactory.CreateConsumer(this);
 			if (Prototype.RequiredPower.IsZero) {
 				(m_electricityConsumer as ElectricityConsumer)?.RemoveSelf();
-			}
+			}*/
 
 			m_portsHelper = portsHelperFactory.CreateInstance(this, IoPortType.Any);
 
@@ -145,7 +146,7 @@ namespace ExampleMod.ReferenceCode {
 			}
 		}
 
-		protected override void SimUpdate() {
+		/*protected override void SimUpdate() {
 			if (IsNotEnabled) {
 				return;
 			}
@@ -159,7 +160,7 @@ namespace ExampleMod.ReferenceCode {
 					break;
 				}
 			}
-		}
+		}*/
 
 		public Quantity GetTotalStoredQuantity() {
 			return new Quantity(
@@ -429,9 +430,10 @@ namespace ExampleMod.ReferenceCode {
 			}
 		}
 
+		/*
 		public override IEntityAddRequest GetAddRequest(EntityAddReason reasonToAdd) {
 			return new LayoutEntityAddRequest(this, reasonToAdd);
-		}
+		}*/
 
 		protected override void OnDestroy() {
 			foreach (UniversalPort p in m_portsHelper.Ports) {
